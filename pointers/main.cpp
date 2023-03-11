@@ -55,24 +55,61 @@ void printChar() {
     }
 }
 
+void readFrom(char* word, int idx) {
+    printf("asd %lu\n", sizeof(*word) / sizeof(char));
+    if (idx > sizeof(*word) / sizeof(char)) {
+        printf("idx is our of range!\n");
+        return;
+    }
+    printf("value: %s\n", word + idx);
+}
+
+void writeTo(char* word, int idx, char* val) {
+      if (idx > sizeof(*word) / sizeof(char)) {
+        printf("idx is our of range!\n");
+        return;
+    }
+    
+    *word = *val;
+
+    printf("value: %s\n", word);
+}
+
 void example() {
     char lower[] = "abc?e";
     char upper[] = "ABC?E";
+    char insert[] ="z";
     char* upper_ptr = &upper[0];
 
-    *(lower + 3) = 'd';
-    *(upper_ptr + 3) = 'D';
+    readFrom(lower, 2);
+    writeTo(lower, 0, insert);
 
-    char letter_d = *(lower + 3);  // lower decays into a pointer when we add
-    char letter_D = *(upper_ptr + 3);
+    // *(lower + 3) = 'd';
+    // *(upper_ptr + 3) = 'D';
 
-    printf("lower: %s\nupper: %s", lower, upper);
+    // char letter_d = *(lower + 3);  // lower decays into a pointer when we add
+    // char letter_D = *(upper_ptr + 3);
+
+    // printf("lower: %s\nupper: %s", lower, upper);
 }
 
 void colleges() {
     College best_colleges[] = {"Magdalen", "Nuffield", "Kellogg"};
     College my_collage{"BYU"};
     print_names(best_colleges, sizeof(best_colleges) / sizeof(College));
+}
+
+void refAssess() {
+    int original = 100;
+    int& original_ref = original;
+    printf("Original:  %d\n", original);
+    printf("Reference: %d\n", original_ref);
+
+    int new_value = 200;
+    original_ref = new_value;
+    printf("Original:  %d\n", original);
+    printf("New Value: %d\n", new_value);
+    printf("Reference: %d\n", original_ref);
 }
 
 int main() {
@@ -89,4 +126,6 @@ int main() {
     // colleges();
     // printChar();
     example();
+
+    // refAssess();
 }
